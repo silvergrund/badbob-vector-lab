@@ -1,0 +1,23 @@
+---
+const digits = [
+    {sequence: [6, 2, 9, 1, 7, 0, 4, 8, 3, 5], period: 13.7, delay: -2.4},
+    {sequence: [1, 8, 3, 0, 6, 4, 9, 2, 5, 7], period: 19.3, delay: -7.1},
+    {sequence: [8, 0, 5, 2, 9, 1, 6, 3, 7, 4], period: 23.9, delay: -12.7},
+    {sequence: [2, 7, 1, 9, 4, 6, 0, 5, 8, 3], period: 17.1, delay: -4.8},
+];
+---
+<span class="rolling-equation">f(x) = 0.{digits.map(digit =>
+    <span class="digit-window">
+        <span class="digit-strip" style={`--digit-period:${digit.period}s;--digit-delay:${digit.delay}s`}>
+            {[...digit.sequence, digit.sequence[0]].map(value => <span>{value}</span>)}
+        </span>
+    </span>
+)}x²</span>
+<style>
+    .rolling-equation{font-family:var(--mono);font-size:.8em;font-style:normal;font-variant-numeric:tabular-nums}
+    .digit-window{display:inline-block;inline-size:.65em;block-size:1.3em;overflow:hidden;vertical-align:-.25em}
+    .digit-strip{display:flex;flex-direction:column;animation:digit-cycle var(--digit-period) steps(10,end) var(--digit-delay) infinite}
+    .digit-strip>span{display:block;flex:none;block-size:1.3em;line-height:1.3em}
+    @keyframes digit-cycle{from{transform:translateY(0)}to{transform:translateY(-13em)}}
+    @media(prefers-reduced-motion:reduce){.digit-strip{animation:none}}
+</style>

@@ -1,0 +1,26 @@
+---
+const meridians = [0, 30, 60, 90, 120, 150];
+const latitudes = [-60, -40, -20, 0, 20, 40, 60].map(angle => ({
+    diameter: Math.cos(angle * Math.PI / 180) * 100,
+    top: 50 - Math.sin(angle * Math.PI / 180) * 50,
+}));
+---
+<div class="wire-globe" aria-hidden="true">
+    <div class="globe-axis">
+        <div class="globe-mesh">
+            {meridians.map(angle => <span class="globe-ring meridian" style={`transform:rotateY(${angle}deg)`}></span>)}
+            {latitudes.map(latitude => <span class="globe-ring latitude" style={`--diameter:${latitude.diameter}%;--latitude-top:${latitude.top}%`}></span>)}
+        </div>
+    </div>
+</div>
+<style>
+    .wire-globe{position:relative;inline-size:100%;aspect-ratio:1;perspective:700px;pointer-events:none}
+    .globe-axis,.globe-mesh{position:absolute;inset:0;transform-style:preserve-3d}
+    .globe-axis{transform:rotateX(var(--globe-tilt,-18deg)) rotateZ(var(--globe-roll,-12deg))}
+    .globe-mesh{animation:globe-turn var(--shape-duration,24s) linear infinite;animation-direction:var(--shape-direction,normal)}
+    .globe-ring{position:absolute;display:block;border:1px solid currentColor;border-radius:50%;backface-visibility:visible}
+    .meridian{inset:0}
+    .latitude{left:50%;top:var(--latitude-top);inline-size:var(--diameter);aspect-ratio:1;transform:translate(-50%,-50%) rotateX(90deg)}
+    @keyframes globe-turn{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
+    @media(prefers-reduced-motion:reduce){.globe-mesh{animation:none;transform:rotateY(20deg)}}
+</style>

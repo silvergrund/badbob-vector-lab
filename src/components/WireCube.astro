@@ -1,0 +1,22 @@
+---
+const faces = [
+    'translateZ(30cqi)',
+    'rotateY(180deg) translateZ(30cqi)',
+    'rotateY(90deg) translateZ(30cqi)',
+    'rotateY(-90deg) translateZ(30cqi)',
+    'rotateX(90deg) translateZ(30cqi)',
+    'rotateX(-90deg) translateZ(30cqi)',
+];
+---
+<div class="wire-cube" aria-hidden="true">
+    <div class="cube-mesh">
+        {faces.map(transform => <span class="cube-face" style={`transform:${transform}`}></span>)}
+    </div>
+</div>
+<style>
+    .wire-cube{position:relative;inline-size:100%;aspect-ratio:1;container-type:inline-size;perspective:700px;pointer-events:none}
+    .cube-mesh{position:absolute;inset:20%;transform-style:preserve-3d;transform:rotateX(-18deg) rotateY(25deg);animation:cube-turn var(--shape-duration,28s) linear infinite;animation-direction:var(--shape-direction,normal)}
+    .cube-face{position:absolute;inset:0;border:1px solid currentColor;backface-visibility:visible}
+    @keyframes cube-turn{from{transform:rotateX(-18deg) rotateY(25deg)}to{transform:rotateX(342deg) rotateY(385deg)}}
+    @media(prefers-reduced-motion:reduce){.cube-mesh{animation:none}}
+</style>

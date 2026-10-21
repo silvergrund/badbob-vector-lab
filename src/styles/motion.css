@@ -1,0 +1,21 @@
+/* Include this globally when composing the unmodified animation primitives. */
+:root:not([data-motion="running"]) [data-chalkboard-effects],
+:root:not([data-motion="running"]) [data-chalkboard-effects] *,
+:root:not([data-motion="running"]) [data-chalkboard-effects] *::before,
+:root:not([data-motion="running"]) [data-chalkboard-effects] *::after {
+  animation-play-state: paused !important;
+}
+/* No JavaScript: show the principal shapes as a static illustration. */
+:root[data-motion="static"] [data-chalkboard-effects] .chalk-shape {
+  animation: none !important;
+  transform: none;
+  opacity: .35;
+}
+:root[data-motion="static"] [data-chalkboard-effects] .chalk-spark,
+:root[data-motion="static"] [data-chalkboard-effects] .equation-flight { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-chalkboard-effects], [data-chalkboard-effects] *,
+  [data-chalkboard-effects] *::before, [data-chalkboard-effects] *::after {
+    animation: none !important;
+  }
+}

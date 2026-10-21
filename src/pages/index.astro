@@ -1,0 +1,47 @@
+---
+import ChalkboardEffects from '../components/ChalkboardEffects.astro';
+import '../styles/motion.css';
+---
+<!doctype html>
+<html lang="en" data-motion="static">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Reusable CSS wire shapes and chalkboard equations from BadBob." />
+    <title>BadBob Vector Lab</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">BadBob Vector Lab</p>
+        <h1>A little geometry.<br />An occasional equation.</h1>
+        <p>CSS wire shapes and chalkboard effects, with motion you control.</p>
+      </header>
+      <div class="controls">
+        <button type="button" data-motion-toggle aria-pressed="false" aria-controls="chalkboard-demo" hidden>Pause motion</button>
+        <p data-motion-status aria-live="polite">Static illustration. Enable JavaScript for optional motion.</p>
+      </div>
+      <section id="chalkboard-demo" aria-label="Decorative chalkboard with rotating wire shapes and occasional equations">
+        <ChalkboardEffects>
+          <div slot="background" class="plain-board" aria-hidden="true"></div>
+        </ChalkboardEffects>
+      </section>
+      <p class="caption">Shapes and equations appear briefly on long, staggered cycles. The smaller shapes rotate in reverse. Pause holds every mesh and rolling digit at its current position.</p>
+      <footer><a href="https://github.com/silvergrund/badbob-vector-lab">Source on GitHub</a> · MIT License</footer>
+    </main>
+    <script>
+      import {initMotion} from '../scripts/motion.js';
+      initMotion(document, window.matchMedia('(prefers-reduced-motion: reduce)'));
+    </script>
+  </body>
+</html>
+<style is:global>
+  :root{color-scheme:dark;--cream:#f3efcb;--ink:#0a1114;--panel:#0f1c22;--blue:#2d83aa;--mono:'IBM Plex Mono',monospace;font-family:system-ui,sans-serif;color:var(--cream);background:var(--panel)}
+  *{box-sizing:border-box}body{margin:0}main{max-width:1100px;margin:auto;padding:clamp(24px,5vw,64px)}
+  h1{font-size:clamp(32px,5vw,60px);line-height:1.08;font-weight:550;letter-spacing:-.045em;margin:16px 0}
+  p{line-height:1.6}.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:12px;color:#8dc1d9}
+  .controls{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:28px 0 14px}.controls p{font-size:14px;flex:1;min-width:210px;margin:0}
+  button{font:inherit;border:1px solid #2d83aa;border-radius:6px;padding:10px 16px;color:var(--cream);background:var(--ink);cursor:pointer}button[hidden]{display:none}button:disabled{cursor:default;opacity:.75}
+  :focus-visible{outline:3px solid var(--cream);outline-offset:4px}.plain-board{background:#0a1114}section{border:1px solid #2f4f5f;border-radius:12px;overflow:hidden}
+  .caption,footer{font-size:14px;color:color-mix(in srgb,var(--cream) 72%,var(--panel))}a{color:#8dc1d9}footer{margin-top:32px}
+</style>

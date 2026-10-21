@@ -1,0 +1,14 @@
+<div class="wire-vector" aria-hidden="true">
+    <svg class="vector-spin" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+        <path class="vector-axes" d="M20 80H94M20 80V6M20 80L66 34" />
+        <path d="M20 80L80 20M65 24L80 20L76 35" />
+        <circle cx="20" cy="80" r="2" />
+    </svg>
+</div>
+<style>
+    .wire-vector{position:relative;inline-size:100%;aspect-ratio:1;perspective:700px;pointer-events:none}
+    .vector-spin{display:block;inline-size:100%;block-size:100%;transform:rotateY(-20deg);animation:vector-turn 32s linear infinite}
+    .vector-axes{opacity:.35}
+    @keyframes vector-turn{from{transform:rotateY(-20deg) rotateZ(-8deg)}to{transform:rotateY(340deg) rotateZ(-8deg)}}
+    @media(prefers-reduced-motion:reduce){.vector-spin{animation:none}}
+</style>

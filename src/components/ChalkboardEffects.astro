@@ -1,0 +1,82 @@
+---
+import WireGlobe from './WireGlobe.astro';
+import WireCube from './WireCube.astro';
+import WireVector from './WireVector.astro';
+import WirePyramid from './WirePyramid.astro';
+import RollingEquation from './RollingEquation.astro';
+
+interface Calculation {
+    text: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    delay: number;
+    tint: 'white' | 'blue';
+    kind: 'einstein' | 'integral' | 'model' | 'rolling';
+}
+
+const calculations:Calculation[]=[
+    {text:'Gμν + Λgμν',x:21,y:17,width:26,height:8,delay:5,tint:'white',kind:'einstein'},
+    {text:'∫ ℒₘ d⁴x',x:43,y:5,width:19,height:9,delay:18,tint:'blue',kind:'integral'},
+    {text:'MODEL = mc²',x:72,y:23,width:17,height:8,delay:40,tint:'white',kind:'model'},
+    {text:'f(x) = 0.6182x²',x:18,y:61,width:22,height:9,delay:62,tint:'blue',kind:'rolling'},
+];
+---
+<div class="chalkboard-effects" data-chalkboard-effects>
+    <slot name="background" />
+    <div class="calculation-layer" dir="ltr" aria-hidden="true">
+        <div class="chalk-shape chalk-pyramid"><WirePyramid /></div>
+        <div class="chalk-shape chalk-globe"><WireGlobe /></div>
+        <div class="chalk-shape chalk-cube"><WireCube /></div>
+        <div class="chalk-shape chalk-vector"><WireVector /></div>
+        <div class="chalk-shape chalk-spark chalk-spark-globe"><WireGlobe /></div>
+        <div class="chalk-shape chalk-spark chalk-spark-cube"><WireCube /></div>
+        <div class="chalk-shape chalk-spark chalk-spark-pyramid"><WirePyramid /></div>
+        {calculations.map(calculation=><>
+            <span class="projection-origin" style={`left:${calculation.x+calculation.width/2}%;top:${calculation.y+calculation.height/2}%;--delay:${calculation.delay}s;`}><span class:list={['equation-flight',calculation.tint,calculation.kind]}>{calculation.kind === 'einstein' ? <>G<sub>μν</sub> + Λg<sub>μν</sub></> : calculation.kind === 'rolling' ? <RollingEquation /> : calculation.text}</span></span>
+        </>)}
+    </div>
+</div>
+<style>
+    .chalkboard-effects{--board-turn:-18deg;--board-slant:-17deg;position:relative;isolation:isolate;overflow:hidden;aspect-ratio:1672/941;background:var(--ink,#0a1114)}
+    .chalkboard-effects :global([slot="background"]){position:absolute;inset:0;inline-size:100%;block-size:100%;object-fit:cover}
+    .calculation-layer{position:absolute;inset:0;pointer-events:none}
+    .chalk-shape{position:absolute;color:color-mix(in srgb,var(--blue) 35%,white);opacity:0;animation:shape-breathe 84s ease-in-out var(--appearance-delay,0s) infinite both}
+    .chalk-pyramid{left:17%;top:14%;width:9%;--appearance-delay:-2s}
+    .chalk-globe{left:25%;top:53%;width:12%;--appearance-delay:9s}
+    .chalk-cube{left:64%;top:7%;width:9%;color:color-mix(in srgb,var(--cream) 40%,white);--appearance-delay:21s}
+    .chalk-vector{left:86%;top:72%;width:8%;--appearance-delay:28s}
+    .chalk-spark{--shape-direction:reverse;animation-name:spark-appear;animation-duration:42s}
+    .chalk-spark-globe{left:50%;top:5%;width:6%;--shape-duration:31s;--globe-tilt:-35deg;--globe-roll:25deg;--appearance-delay:7.3s}
+    .chalk-spark-cube{left:92%;top:47%;width:5.5%;--shape-duration:19s;--appearance-delay:25.8s}
+    .chalk-spark-pyramid{left:79%;top:57%;width:5.5%;--shape-duration:37s;--appearance-delay:36.8s}
+    .projection-origin{position:absolute;inline-size:0;block-size:0;perspective:720px;perspective-origin:0 0}
+    .white{--chalk:color-mix(in srgb,var(--cream) 40%,white)}
+    .blue{--chalk:color-mix(in srgb,var(--blue) 45%,white)}
+    .equation-flight{position:absolute;left:0;top:0;color:var(--chalk);font-size:clamp(11px,1.2vw,18px);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;line-height:1;text-transform:none;letter-spacing:0;white-space:nowrap;opacity:0;transform-origin:center;transform:translate3d(-50%,-50%,0) rotateY(var(--board-turn)) skewY(var(--board-slant));text-shadow:0 1px 3px var(--ink),0 0 10px color-mix(in srgb,var(--chalk) 35%,transparent);animation:equation-project 84s cubic-bezier(.22,.6,.4,1) infinite;animation-delay:var(--delay);will-change:transform,opacity}
+    .equation-flight.einstein{--equation-strength:.62}
+    .equation-flight.integral{--equation-strength:.38;--board-slant:-13deg;font-size:clamp(11px,1.1vw,16px)}
+    .equation-flight.model{--equation-strength:.55;--board-slant:-16deg;font-family:var(--mono);font-style:normal}
+    .equation-flight.rolling{--equation-strength:.45;--board-slant:-18deg}
+    .equation-flight sub{font-size:.6em;line-height:0;vertical-align:sub}
+    @keyframes shape-breathe{
+        0%,2%,100%{transform:scale(.9);opacity:0}
+        4%{transform:scale(1.08);opacity:.7}
+        7%{transform:scale(.98);opacity:.4}
+        9%{transform:scale(.9);opacity:0}
+    }
+    @keyframes spark-appear{
+        0%,.5%,100%{transform:scale(.85);opacity:0}
+        3%{transform:scale(1);opacity:.7}
+        6%{transform:scale(1.08);opacity:.4}
+        8%{transform:scale(.9);opacity:0}
+    }
+    @keyframes equation-project{
+        0%,1%{opacity:0;transform:translate3d(-50%,-50%,0) rotateY(var(--board-turn)) skewY(var(--board-slant)) scale(.8);filter:blur(0)}
+        2%{opacity:var(--equation-strength)}
+        4%{opacity:calc(var(--equation-strength)*.7);filter:blur(0)}
+        6%,100%{opacity:0;transform:translate3d(-50%,-50%,470px) rotateY(0deg) skewY(0deg) scale(1.35);filter:blur(1.2px)}
+    }
+    @media(prefers-reduced-motion:reduce){.equation-flight{display:none}.chalk-shape{animation:none;transform:none;opacity:.35}.chalk-spark{display:none}}
+</style>

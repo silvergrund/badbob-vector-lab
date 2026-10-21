@@ -1,0 +1,33 @@
+{
+  "sourceRepository": "https://github.com/silvergrund/BadBobAstro",
+  "sourceCommit": "9585323e54c87d92fbcbb34acf12c26bdbbe317f",
+  "algorithm": "sha256",
+  "files": {
+    "src/components/WireGlobe.astro": {
+      "source": "src/components/WireGlobe.astro",
+      "sha256": "01b0911665d0e14cfafadfa24e669466bb992b66a136c7abbdb822784aaa9b1c"
+    },
+    "src/components/WireCube.astro": {
+      "source": "src/components/WireCube.astro",
+      "sha256": "4ca6a177cd837f31b75c66a84ff2c4ed3548ab565bc877c869af179d737b7a87"
+    },
+    "src/components/WireVector.astro": {
+      "source": "src/components/WireVector.astro",
+      "sha256": "9eb9c58fab0529f5db4622b0d330ce6e607dcb5db1097001bfff850d7b6d29ef"
+    },
+    "src/components/WirePyramid.astro": {
+      "source": "src/components/WirePyramid.astro",
+      "sha256": "3534a10f4af3d1e152ac3bb3cd2c44fb5cdf80117d13f4ed43cd8ae46c6a5d22"
+    },
+    "src/components/RollingEquation.astro": {
+      "source": "src/components/RollingEquation.astro",
+      "sha256": "9bbf08e61784f6ccaca1774a7ff3d61b44109d8415a97df680fca798736993a8"
+    },
+    "src/components/ChalkboardEffects.astro": {
+      "source": "src/components/ProfessorScene.astro",
+      "sourceSha256": "0a19144ad8ca146ebf01c14ca4d81f82cfb8190e210f59606edcb6312f82ec73",
+      "sha256": "5e37394b293efa43ab90d6cec3d42bad84d720ade0d53dbbef2552009afc68da",
+      "derivation": "Replace image and alt prop with named background slot; rename wrapper; preserve 1672:941 composition ratio; remove asset imports. Effect markup, calculations, placements, typography, keyframes and timing preserved."
+    }
+  }
+}

@@ -34,6 +34,8 @@ npm run preview
 
 The finished website is in `dist/`. `npm run preview` lets you check it locally before hosting it.
 
+Contributions are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## License
 
 [MIT](LICENSE). No artwork or models are included.
